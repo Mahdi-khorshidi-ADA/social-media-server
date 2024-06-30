@@ -4,33 +4,36 @@ export const typeDefs = gql`
   type Query {
     users: [User!]!
     posts: [Post!]!
-    post(id: ID!): Post!
-    user(id: ID!): User!
   }
   type Mutation {
     postCreate(input: postCreateInput!): PostPayload!
     postUpdate(id: ID!, input: postCreateInput!): PostPayload!
     postDelete(id: ID!): PostPayload!
+    signUp(input: signUpInputType!): SignUpPayload!
+    signIn(input: signUpInputType!): SignUpPayload!
+    postPublish(id: ID!): PostPayload!
+    postUnPublish(id: ID!): PostPayload!
+  }
+
+  type SignUpPayload {
+    userError: [Error!]!
+    token: String
+  }
+
+  input signUpInputType {
+    name: String
+    email: String!
+    password: String!
+    bio: String
   }
 
   type PostPayload {
-    postError: [Error!]!
+    userError: [Error!]!
     post: Post
   }
   type Error {
     message: String!
   }
-  type UserPayload {
-    userError: [Error!]!
-    user: User
-  }
-
-  input userCreateInput {
-    email: String!
-    name: String!
-    password: String
-  }
-
   input postCreateInput {
     title: String
     content: String
