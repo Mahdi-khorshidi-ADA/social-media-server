@@ -1,6 +1,5 @@
 import { Post, Prisma } from "@prisma/client";
 import { Context } from "..";
-import { NewLineKind } from "typescript";
 
 type UserParentType = {
   id: number;
