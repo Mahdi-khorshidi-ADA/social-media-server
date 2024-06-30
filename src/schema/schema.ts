@@ -4,6 +4,10 @@ export const typeDefs = gql`
   type Query {
     users: [User!]!
     posts: [Post!]!
+    currentUser: UserPayload
+    profile(id: ID!): ProfilePayload!
+    user: UserPayload!
+    userPosts: PostPayloadList!
   }
   type Mutation {
     postCreate(input: postCreateInput!): PostPayload!
@@ -13,6 +17,14 @@ export const typeDefs = gql`
     signIn(input: signUpInputType!): SignUpPayload!
     postPublish(id: ID!): PostPayload!
     postUnPublish(id: ID!): PostPayload!
+  }
+  type PostPayloadList {
+    userError: [Error!]!
+    posts: [Post!]!
+  }
+  type ProfilePayload {
+    userError: [Error!]!
+    profile: Profile
   }
 
   type SignUpPayload {
@@ -30,6 +42,10 @@ export const typeDefs = gql`
   type PostPayload {
     userError: [Error!]!
     post: Post
+  }
+  type UserPayload {
+    userError: [Error!]!
+    user: User
   }
   type Error {
     message: String!
@@ -55,14 +71,13 @@ export const typeDefs = gql`
     password: String
     createdAt: String!
     updatedAt: String!
-    post: [Post!]!
-    profile: Profile!
+    userPosts: PostPayloadList!
   }
   type Profile {
     id: ID!
     bio: String
     createdAt: String!
     updatedAt: String!
-    user: User!
+    user: UserPayload!
   }
 `;
