@@ -14,7 +14,7 @@ type PostPayload = {
 export const User = {
   userPosts: async (
     { id }: UserParentType,
-    _: any,
+    { take, skip }: { take: number; skip: number },
     { prisma, userInfo }: Context
   ): Promise<PostPayload> => {
     const isOwnProfile = id === userInfo?.userId;
@@ -27,6 +27,8 @@ export const User = {
           createdAt: "desc",
         },
       ],
+      skip,
+      take,
     });
     const publishedPosts = await prisma.post.findMany({
       where: {
@@ -38,6 +40,8 @@ export const User = {
           createdAt: "desc",
         },
       ],
+      skip,
+      take,
     });
     if (isOwnProfile) {
       return {

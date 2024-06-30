@@ -15,16 +15,22 @@ type ProfilePayload = {
 };
 
 export const Query = {
-  posts: (_: any, __: any, { prisma }: Context) => {
+  posts: (
+    _: any,
+    { take, skip }: { take: number; skip: number },
+    { prisma }: Context
+  ) => {
     return prisma.post.findMany({
-      where:{
-        published:true
+      where: {
+        published: true,
       },
       orderBy: [
         {
           createdAt: "asc",
         },
       ],
+      skip,
+      take,
     });
   },
   users: (_: any, __: any, { prisma }: Context) => {
@@ -87,5 +93,4 @@ export const Query = {
       profile,
     };
   },
-  
 };
