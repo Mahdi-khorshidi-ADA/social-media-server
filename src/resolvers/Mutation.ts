@@ -3,8 +3,9 @@ import { Context } from "..";
 import validator from "validator";
 import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
-import { JWT_SIGNATURE } from "../key";
 import { canUserMutatePost } from "../utils/canUserMutatePost";
+import { JWT_SIGNATURE } from "../key";
+JWT_SIGNATURE
 type PostCreateArgs = {
   input: {
     title: string;
