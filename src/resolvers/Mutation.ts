@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 import JWT from "jsonwebtoken";
 import { canUserMutatePost } from "../utils/canUserMutatePost";
 import { JWT_SIGNATURE } from "../key";
-JWT_SIGNATURE
+JWT_SIGNATURE;
 type PostCreateArgs = {
   input: {
     title: string;
@@ -190,6 +190,26 @@ export const Mutation = {
     { prisma }: Context
   ): Promise<signUpPayload> => {
     const { name, email, bio, password } = input;
+    if (!name && !email && !password && !bio) {
+      return {
+        userError: [
+          {
+            message: "felids are empty can't signup",
+          },
+        ],
+        token: null,
+      };
+    }
+    if (!name) {
+      return {
+        userError: [
+          {
+            message: "invalid name try again",
+          },
+        ],
+        token: null,
+      };
+    }
     if (!validator.isEmail(email)) {
       return {
         userError: [
@@ -210,11 +230,11 @@ export const Mutation = {
         token: null,
       };
     }
-    if (!name) {
+    if (!bio) {
       return {
         userError: [
           {
-            message: "invalid name try again",
+            message: "invalid bio try again",
           },
         ],
         token: null,
@@ -253,6 +273,36 @@ export const Mutation = {
     { prisma }: Context
   ): Promise<signUpPayload> => {
     const { email, password } = input;
+    if (!email && !password) {
+      return {
+        userError: [
+          {
+            message: "felids are empty can't sign in",
+          },
+        ],
+        token: null,
+      };
+    }
+     if (!email) {
+       return {
+         userError: [
+           {
+             message: "email field is empty",
+           },
+         ],
+         token: null,
+       };
+     }
+      if (!password) {
+        return {
+          userError: [
+            {
+              message: "password field is empty",
+            },
+          ],
+          token: null,
+        };
+      }
     if (!validator.isEmail(email)) {
       return {
         userError: [
@@ -293,7 +343,7 @@ export const Mutation = {
       return {
         userError: [
           {
-            message: "this user does not exist !!!",
+            message: "the password is not correct try again later !!!",
           },
         ],
         token: null,

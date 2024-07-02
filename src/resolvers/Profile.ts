@@ -14,7 +14,7 @@ type UserPayload = {
 };
 export const Profile = {
   user: async (
-    { id,bio,userId }: ProfileParentType,
+    { id, bio, userId }: ProfileParentType,
     _: any,
     { prisma }: Context
   ): Promise<UserPayload> => {
@@ -31,7 +31,7 @@ export const Profile = {
     }
     return {
       userError: [],
-      user,
+      user
     };
   },
 };

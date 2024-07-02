@@ -37,7 +37,7 @@ export const Query = {
     return prisma.user.findMany({
       orderBy: [
         {
-          id: "asc",
+          id: "desc",
         },
       ],
     });
